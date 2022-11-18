@@ -14,5 +14,5 @@ jobs:
         with:
           node-version: "16"
           registry-url: https://registry.npmjs.org/
-      - run: npm install shelljs -g
+      - run: npm install
       - run: node test3/index.js
