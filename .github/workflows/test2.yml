@@ -1,4 +1,4 @@
-name: "@ipare/cli"
+name: "cli"
 
 on:
   workflow_dispatch:
