@@ -1,4 +1,4 @@
-name: "packages"
+name: "ci"
 
 on:
   workflow_dispatch:
