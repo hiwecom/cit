@@ -1,5 +1,6 @@
 [
     "@ipare/alifc",
+    "@ipare/body",
     "@ipare/cookie",
     "@ipare/core",
     "@ipare/cors",
@@ -13,6 +14,7 @@
     "@ipare/logger",
     "@ipare/methods",
     "@ipare/micro",
+    "@ipare/micro-client",
     "@ipare/micro-mqtt",
     "@ipare/micro-nats",
     "@ipare/micro-redis",
@@ -22,7 +24,7 @@
     "@ipare/pipe",
     "@ipare/redis",
     "@ipare/router",
-    "@ipare/server",
+    "@ipare/native",
     "@ipare/static",
     "@ipare/swagger",
     "@ipare/testing",

@@ -67,18 +67,3 @@ function getNow() {
     sec = date.getSeconds().toString().padStart(2, "0");
   return year + month + day + "_" + hour + min + sec;
 }
-
-exports.init = async function () {
-  await exec("git clone https://github.com/ipare/ipare");
-  const ipareDir = "ipare/packages";
-  const packages = fs
-    .readdirSync(ipareDir)
-    .filter((pkg) => fs.statSync(path.join(ipareDir, pkg)).isDirectory())
-    .map((item) => `@ipare/${item}`);
-
-  fs.writeFileSync("./packages.json", JSON.stringify(packages));
-  fs.rmSync("ipare", {
-    recursive: true,
-    force: true,
-  });
-};
