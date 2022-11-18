@@ -1,9 +1,6 @@
 name: "@ipare/cli"
 
 on:
-  push:
-    branches:
-      - main
   workflow_dispatch:
   issues:
     types: [opened, edited, locked, unlocked, deleted]
