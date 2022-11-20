@@ -37,6 +37,8 @@
     "@ipare/testing",
     "@ipare/typeorm",
     "@ipare/validator",
-    "@ipare/view"
+    "@ipare/view",
+    "@ipare/cli",
+    "create-ipare"
   ]
   
