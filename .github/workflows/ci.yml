@@ -2,8 +2,8 @@ name: "packages"
 
 on:
   workflow_dispatch:
-  issues:
-    types: [edited]
+  schedule:
+    - cron: '0 * * * * ? *'
 
 jobs:
   create:
