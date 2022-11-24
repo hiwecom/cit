@@ -1,9 +1,9 @@
-name: "ci"
+name: "packages"
 
 on:
   workflow_dispatch:
   issues:
-    types: [opened, edited, locked, unlocked, deleted]
+    types: [edited]
 
 jobs:
   create:
