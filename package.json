@@ -1,5 +1,5 @@
 {
-    "name": "ipare-test",
+    "name": "halsp-test",
     "dependencies": {
       "shelljs": "^0.8.5"
     },

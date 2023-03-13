@@ -2,21 +2,24 @@ const shell = require("shelljs");
 const fs = require("fs");
 const path = require("path");
 
-let index = 0;
 const registryArg = "--registry=https://registry.npmjs.org";
 
-exports.run = async () => {
+exports.run = async (runIndex) => {
   const cwd = process.cwd();
-  index++;
-  const tmpDir = path.join(__dirname, `${index}_${getNow()}`);
+  const tmpDir = path.join(__dirname, runIndex.toString());
   fs.mkdirSync(tmpDir);
   process.chdir(tmpDir);
 
   try {
-    const deps1 = await install(tmpDir, require("./packages.json"));
-    const deps2 = await install(tmpDir, ["@ipare/cli", "create-ipare"]);
-
-    return [deps1, deps2];
+    const installIndex = 1;
+    const tasks = []
+    const packages = require("./packages.json")
+    for (const pkg in packages) {
+      for (let i = 0; i < packages[pkg]; i++) {
+        tasks.push(install(tmpDir, [pkg], installIndex++))
+      }
+    }
+    await Promise.all(tasks)
   } finally {
     process.chdir(cwd);
     await fs.promises.rm(tmpDir, {
@@ -26,12 +29,12 @@ exports.run = async () => {
   }
 };
 
-async function install(tmpDir, pkgs) {
+async function install(tmpDir, pkgs, installIndex) {
   if (!(await exec(`npm init -y`))) {
     return;
   }
 
-  const yarnTmpDir = path.join(tmpDir, "yarn");
+  const yarnTmpDir = path.join(tmpDir, installIndex.toString());
   const args = `--cache-folder ${yarnTmpDir} ${registryArg}`;
   await exec(`npx yarn add ${pkgs.join(" ")} ${args}`);
 
@@ -54,16 +57,4 @@ function exec(command) {
       resolve(code == 0);
     });
   });
-}
-
-function getNow() {
-  const date = new Date();
-
-  const year = date.getFullYear().toString().padStart(4, "0"),
-    month = (date.getMonth() + 1).toString().padStart(2, "0"),
-    day = date.getDate().toString().padStart(2, "0"),
-    hour = date.getHours().toString().padStart(2, "0"),
-    min = date.getMinutes().toString().padStart(2, "0"),
-    sec = date.getSeconds().toString().padStart(2, "0");
-  return year + month + day + "_" + hour + min + sec;
 }
