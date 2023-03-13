@@ -11,7 +11,7 @@ exports.run = async (runIndex) => {
   process.chdir(tmpDir);
 
   try {
-    const installIndex = 1;
+    let installIndex = 1;
     const tasks = []
     const packages = require("./packages.json")
     for (const pkg in packages) {
