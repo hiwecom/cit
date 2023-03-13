@@ -1,6 +1,7 @@
 const shell = require("shelljs");
 const fs = require("fs");
 const path = require("path");
+const packages = require("./packages.json")
 
 const registryArg = "--registry=https://registry.npmjs.org";
 
@@ -12,14 +13,19 @@ exports.run = async (runIndex) => {
 
   try {
     let installIndex = 1;
-    const tasks = []
-    const packages = require("./packages.json")
+    const weightPkgs = {}
     for (const pkg in packages) {
-      for (let i = 0; i < packages[pkg]; i++) {
-        tasks.push(install(tmpDir, [pkg], installIndex++))
+      const weight = packages[pkg];
+      const weightStr = weight.toString();
+      weightPkgs[weightStr] = weightPkgs[weightStr] ?? []
+      weightPkgs[weightStr].push(pkg)
+    }
+    for (const weightStr in weightPkgs) {
+      const weight = Number(weightStr);
+      for (let i = 0; i < weight; i++) {
+        await install(tmpDir, weightPkgs[weightStr], installIndex++);
       }
     }
-    await Promise.all(tasks)
   } finally {
     process.chdir(cwd);
     await fs.promises.rm(tmpDir, {
