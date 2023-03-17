@@ -1,14 +1,16 @@
 name: "single"
 
-inputs:
-  package:
-    description: 'Package name'
-    required: true
-    default: '@halsp/'
-  times:
-    description: 'Run times'
-    required: true
-    default: '1'
+on:
+  workflow_dispatch:
+    inputs:
+      package:
+        description: 'Package name'
+        required: true
+        default: '@halsp/'
+      times:
+        description: 'Run times'
+        required: true
+        default: '1'
 
 jobs:
   create:
