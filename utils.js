@@ -15,7 +15,7 @@ exports.runSingle = async (pkg, times) => {
   return await run(obj, 0)
 }
 
-async function run(pkgs) {
+async function run(pkgs, runIndex) {
   const cwd = process.cwd();
   const tmpDir = path.join(__dirname, runIndex.toString());
   fs.mkdirSync(tmpDir);
