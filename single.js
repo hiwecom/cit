@@ -1,4 +1,4 @@
-const { runAll } = require("./utils");
+const { runSingle } = require("./utils");
 
 const pkg = process.argv[2];
 const times = process.argv[3];
