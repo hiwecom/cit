@@ -5,7 +5,17 @@ const packages = require("./packages.json")
 
 const registryArg = "--registry=https://registry.npmjs.org";
 
-exports.run = async (runIndex) => {
+exports.runAll = async (runIndex) => {
+  return await run(packages, runIndex)
+};
+
+exports.runSingle = async (pkg, times) => {
+  const obj = {}
+  obj[pkg] = times;
+  return await run(obj, 0)
+}
+
+async function run(pkgs) {
   const cwd = process.cwd();
   const tmpDir = path.join(__dirname, runIndex.toString());
   fs.mkdirSync(tmpDir);
@@ -14,8 +24,8 @@ exports.run = async (runIndex) => {
   try {
     let installIndex = 1;
     const weightPkgs = {}
-    for (const pkg in packages) {
-      const weight = packages[pkg];
+    for (const pkg in pkgs) {
+      const weight = pkgs[pkg];
       const weightStr = weight.toString();
       weightPkgs[weightStr] = weightPkgs[weightStr] ?? []
       weightPkgs[weightStr].push(pkg)
@@ -33,7 +43,7 @@ exports.run = async (runIndex) => {
       force: true,
     });
   }
-};
+}
 
 async function install(tmpDir, pkgs, installIndex) {
   if (!(await exec(`npm init -y`))) {

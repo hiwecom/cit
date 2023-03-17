@@ -1,9 +1,14 @@
 name: "packages"
 
-on:
-  schedule:
-    - cron: "* */36 * * *"
-  workflow_dispatch:
+inputs:
+  package:
+    description: 'Package name'
+    required: true
+    default: '@halsp/'
+  times:
+    description: 'Run times'
+    required: true
+    default: '1'
 
 jobs:
   create:
@@ -15,4 +20,4 @@ jobs:
           node-version: "16"
           registry-url: https://registry.npmjs.org/
       - run: npm install
-      - run: node all.js
+      - run: node single.js ${{imports.package}} ${{imports.times}}
