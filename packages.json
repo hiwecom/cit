@@ -34,5 +34,6 @@
   "@halsp/view": 1,
   "@halsp/knex": 1,
   "@halsp/cli": 5,
-  "create-halsp": 2
+  "create-halsp": 2,
+  "@cloudbase/cli":10
 }
