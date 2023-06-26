@@ -33,6 +33,7 @@
   "@halsp/validator": 2,
   "@halsp/view": 1,
   "@halsp/knex": 1,
+  "@halsp/ws": 1,
   "@halsp/cli": 5,
   "create-halsp": 2,
   "@cloudbase/cli":10
